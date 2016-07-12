@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html >
+<head>
+  
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+  <meta charset="utf-8">
+  
+  <title>pythontime | Houhzize&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Python中的时间处理模块进行数据分析时对时间的处理总是比较麻烦，主要是时间的格式多样性以及不能用int()、float()、mean()等函数直接处理，故本文总结Python中对时间的处理。Python中常见的时间处理模块有两个：
+
+time模块
+datetime模块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pythontime">
+<meta property="og:url" content="http://houhzize.github.io/2016/05/27/pythontime/index.html">
+<meta property="og:site_name" content="Houhzize's Blog">
+<meta property="og:description" content="Python中的时间处理模块进行数据分析时对时间的处理总是比较麻烦，主要是时间的格式多样性以及不能用int()、float()、mean()等函数直接处理，故本文总结Python中对时间的处理。Python中常见的时间处理模块有两个：
+
+time模块
+datetime模块">
+<meta property="og:updated_time" content="2016-07-12T11:58:28.457Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pythontime">
+<meta name="twitter:description" content="Python中的时间处理模块进行数据分析时对时间的处理总是比较麻烦，主要是时间的格式多样性以及不能用int()、float()、mean()等函数直接处理，故本文总结Python中对时间的处理。Python中常见的时间处理模块有两个：
+
+time模块
+datetime模块">
+  
+    <link rel="alternative" href="/atom.xml" title="Houhzize&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/my_photo.jpg">
+  
+  
+      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+  
+  
+  
+      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+  
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false,
+          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
+      }
+  </script>
+
+  
+      <script>
+          yiliaConfig.rootUrl = "/";
+      </script>
+  
+
+  
+  
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/my_photo.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Houhzize</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">稚狂</p>
+        
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔/">随笔</a></li>
+                        
+                            <li><a href="/tags/书信/">书信</a></li>
+                        
+                            <li><a href="/tags/数据分析/">数据分析</a></li>
+                        
+                            <li><a href="/tags/Python/">Python</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/mywiki/">我的个人维基</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/ice_ze1994@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/houhzize" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/b2e65b4380d7/latest_articles" title="简书"></a>
+                            
+                                <a class="fa 网易云音乐" target="_blank" href="http://music.163.com/#/user/home?id=87124923" title="网易云音乐"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evernote/">Evernote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OneNote/">OneNote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/时间处理/">时间处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">Lascia ch&#39;io pianga! 任我悲鸣！</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Houhzize</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/my_photo.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Houhzize</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">稚狂</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔/">随笔</a></li>
+                
+                    <li><a href="/tags/书信/">书信</a></li>
+                
+                    <li><a href="/tags/数据分析/">数据分析</a></li>
+                
+                    <li><a href="/tags/Python/">Python</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/mywiki/">我的个人维基</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/ice_ze1994@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/houhzize" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/b2e65b4380d7/latest_articles" title="简书"></a>
+                            
+                                <a class="fa 网易云音乐" target="_blank" href="http://music.163.com/#/user/home?id=87124923" title="网易云音乐"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-pythontime" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/27/pythontime/" class="article-date">
+      <time datetime="2016-05-27T04:04:48.000Z" itemprop="datePublished">2016-05-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      pythontime
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/时间处理/">时间处理</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Python中的时间处理模块"><a href="#Python中的时间处理模块" class="headerlink" title="Python中的时间处理模块"></a>Python中的时间处理模块</h1><p>进行数据分析时对时间的处理总是比较麻烦，主要是时间的格式多样性以及不能用<code>int()</code>、<code>float()</code>、<code>mean()</code>等函数直接处理，故本文总结Python中对时间的处理。<br>Python中常见的时间处理模块有两个：</p>
+<ul>
+<li>time模块</li>
+<li>datetime模块</li>
+</ul>
+<a id="more"></a>
+<h2 id="time模块"><a href="#time模块" class="headerlink" title="time模块"></a>time模块</h2><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><blockquote>
+<p>time 模块有两种表示时间的方式：</p>
+</blockquote>
+<ul>
+<li>时间元组（<code>struct_time</code>）<br>共有九个元素，分别表示年月日等不同的属性，同一个时间戳的<code>struct_time</code>会因为失去的不同而不同</li>
+<li>时间戳<br>时间戳是相对于1970.1.1 00:00:00以秒计算的偏移量，时间戳是唯一的</li>
+</ul>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p><strong>time模块的所有函数的参数如果为时间元组或时间戳，默认值都为当前时间。</strong></p>
+<p>time模块有下列函数：</p>
+<ul>
+<li><code>asctime()</code>:将一个struct_time转换成字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> time</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: x_time=time.localtime() <span class="comment">#获得当前时间</span></div><div class="line"></div><div class="line">In [<span class="number">3</span>]: x_str=time.asctime(x_time) <span class="comment">#转换成字符串</span></div><div class="line"></div><div class="line">In [<span class="number">4</span>]: x_time,x_str</div><div class="line">Out[<span class="number">4</span>]:</div><div class="line">(time.struct_time(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">5</span>, tm_mday=<span class="number">27</span>, tm_hour=<span class="number">14</span>, tm_min=<span class="number">9</span>, tm_sec=<span class="number">8</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">148</span>, tm_isdst=<span class="number">0</span>),</div><div class="line"> <span class="string">'Fri May 27 14:09:08 2016'</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><code>clock()</code></li>
+</ul>
+<p>在不同的系统上含义不同。在UNIX系统上，它返回的是“进程时间”，它是用秒表示的浮点数（时间 戳）。而在WINDOWS中，第一次调用，返回的是进程运行的实际时间。而第二次之后的调用是自第一次调用以后到现在的运行时间。（实际上是以WIN32 上QueryPerformanceCounter()为基础，它比毫秒表示更为精确）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> time</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</div><div class="line">   ...:     time.sleep(<span class="number">1</span>) <span class="comment">#线程延迟1s</span></div><div class="line">   ...:     print(<span class="string">'clock%s:%s'</span>%(i,time.clock()))</div><div class="line">   ...:</div><div class="line">clock0:<span class="number">1.706667394844755e-06</span>  <span class="comment">#该进程运行花费的时间</span></div><div class="line">clock1:<span class="number">1.0095069907229828</span> <span class="comment">#距离第一次运行间隔的时间</span></div><div class="line">clock2:<span class="number">2.0171387806458796</span> <span class="comment">#距离第一次运行间隔的时间</span></div><div class="line">clock3:<span class="number">3.029234785806842</span> <span class="comment">#距离第一次运行间隔的时间</span></div><div class="line">clock4:<span class="number">4.045035965882012</span> <span class="comment">#距离第一次运行间隔的时间</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p><code>sleep()</code><br><code>sleep()</code>函数表示延迟一段时间，在上面已经有例子。<code>time.sleep(1)</code>表示延迟1秒。</p>
+</li>
+<li><p><code>ctime()</code><br><code>ctime()</code>将时间戳转换成字符串。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> time</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: x_time=time.time()  <span class="comment">#获取当前时间戳</span></div><div class="line"></div><div class="line">In [<span class="number">3</span>]: x_str=time.ctime(x_time) <span class="comment">#转换成字符串</span></div><div class="line"></div><div class="line">In [<span class="number">4</span>]: x_time,x_str</div><div class="line">Out[<span class="number">4</span>]: (<span class="number">1464331338.1631036</span>, <span class="string">'Fri May 27 14:42:18 2016'</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><code>gmtime()</code><br>将一个时间戳转换成一个UTC（0时区）的struct_time</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> time</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: x_time=time.time()</div><div class="line"></div><div class="line">In [<span class="number">3</span>]: x_utc_time=time.gmtime(x_time)</div><div class="line"></div><div class="line">In [<span class="number">4</span>]: x_time,x_utc_time</div><div class="line">Out[<span class="number">4</span>]:</div><div class="line">(<span class="number">1464331627.2494178</span>,</div><div class="line"> time.struct_time(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">5</span>, tm_mday=<span class="number">27</span>, tm_hour=<span class="number">6</span>, tm_min=<span class="number">47</span>, tm_sec=<span class="number">7</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">148</span>, tm_isdst=<span class="number">0</span>))</div></pre></td></tr></table></figure>
+<ul>
+<li><code>localtime()</code><br>将时间戳转换为sturct_time</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> time</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: time.localtime()</div><div class="line">Out[<span class="number">2</span>]: time.struct_time(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">5</span>, tm_mday=<span class="number">27</span>, tm_hour=<span class="number">14</span>, tm_min=<span class="number">49</span>, tm_sec=<span class="number">1</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">148</span>, tm_isdst=<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><code>mktime()</code><br>将一个struct_time转换为时间戳</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> time</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: x_str=time.localtime()</div><div class="line"></div><div class="line">In [<span class="number">3</span>]: x_time=time.mktime(x_str)</div><div class="line"></div><div class="line">In [<span class="number">4</span>]: x_str,x_time</div><div class="line">Out[<span class="number">4</span>]:</div><div class="line">(time.struct_time(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">5</span>, tm_mday=<span class="number">27</span>, tm_hour=<span class="number">14</span>, tm_min=<span class="number">55</span>, tm_sec=<span class="number">48</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">148</span>, tm_isdst=<span class="number">0</span>),</div><div class="line"> <span class="number">1464332148.0</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><code>strftime()</code><br>将struct_time转换成格式化字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> time</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: x_str=time.localtime()</div><div class="line"></div><div class="line">In [<span class="number">3</span>]: x_f_str=time.strftime(<span class="string">'%Y-%m-%d %H:%M:%S'</span>,x_str)</div><div class="line"></div><div class="line">In [<span class="number">4</span>]: x_str,x_f_str</div><div class="line">Out[<span class="number">4</span>]:</div><div class="line">(time.struct_time(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">5</span>, tm_mday=<span class="number">27</span>, tm_hour=<span class="number">14</span>, tm_min=<span class="number">58</span>, tm_sec=<span class="number">22</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">148</span>, tm_isdst=<span class="number">0</span>),</div><div class="line"> <span class="string">'2016-05-27 14:58:22'</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><code>strptime()</code><br>将格式化字符串转换成时间元组</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> time</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: x_f_str=<span class="string">'2016-05-27 14:58:22'</span></div><div class="line"></div><div class="line">In [<span class="number">3</span>]: x_str=time.strptime(x_f_str,<span class="string">'%Y-%m-%d %H:%M:%S'</span>)</div><div class="line"></div><div class="line">In [<span class="number">4</span>]: x_f_str,x_str</div><div class="line">Out[<span class="number">4</span>]:</div><div class="line">(<span class="string">'2016-05-27 14:58:22'</span>,</div><div class="line"> time.struct_time(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">5</span>, tm_mday=<span class="number">27</span>, tm_hour=<span class="number">14</span>, tm_min=<span class="number">58</span>, tm_sec=<span class="number">22</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">148</span>, tm_isdst=<span class="number">-1</span>))</div></pre></td></tr></table></figure>
+<ul>
+<li><code>time()</code><br>获得当前时间的时间戳格式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> time</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: time.time()</div><div class="line">Out[<span class="number">2</span>]: <span class="number">1464332003.0966713</span></div></pre></td></tr></table></figure>
+<h2 id="datetime模块"><a href="#datetime模块" class="headerlink" title="datetime模块"></a>datetime模块</h2><h3 id="类型-1"><a href="#类型-1" class="headerlink" title="类型"></a>类型</h3><p>datetime模块常用的四类：</p>
+<ul>
+<li><code>datetime.date</code><br>由年月日构成的日期（日历）</li>
+<li><code>datetime.time</code><br>由时分秒构成的一天24小时的具体时间（手表）</li>
+<li><code>datetime.datetime</code><br>上面两个的综合</li>
+<li><code>datetime.timedelta</code><br>时间间隔对象</li>
+</ul>
+<h3 id="函数-1"><a href="#函数-1" class="headerlink" title="函数"></a>函数</h3><h4 id="datetime-date类"><a href="#datetime-date类" class="headerlink" title="datetime.date类"></a>datetime.date类</h4><ul>
+<li><code>today()</code><br>获得今天的日期</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> datetime</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: x_date=datetime.date.today()</div><div class="line"></div><div class="line">In [<span class="number">3</span>]: x_date</div><div class="line">Out[<span class="number">3</span>]: datetime.date(<span class="number">2016</span>, <span class="number">5</span>, <span class="number">27</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><code>date</code>类直接创建对象</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> datetime</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: t = datetime.date(<span class="number">2014</span>,<span class="number">8</span>,<span class="number">15</span>)</div><div class="line"></div><div class="line">In [<span class="number">3</span>]: t</div><div class="line">Out[<span class="number">4</span>]: datetime.date(<span class="number">2014</span>, <span class="number">8</span>, <span class="number">15</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><code>strftime()</code><br>与time模块中的作用相同</li>
+<li><code>timetuple()</code><br>转换成struct_time格式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> datetime</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: x_date=datetime.date.today()</div><div class="line"></div><div class="line">In [<span class="number">3</span>]: datetime.date.timetuple(x_date)</div><div class="line">Out[<span class="number">3</span>]: time.struct_time(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">5</span>, tm_mday=<span class="number">27</span>, tm_hour=<span class="number">0</span>, tm_min=<span class="number">0</span>, tm_sec=<span class="number">0</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">148</span>, tm_isdst=<span class="number">-1</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><code>mktime()</code><br>与time模块中的作用相同</li>
+<li><code>replace()</code><br>返回一个替换后的date对象。<strong>是date类的方法，不是函数</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> datetime</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: x_date=datetime.date.today()</div><div class="line"></div><div class="line">In [<span class="number">4</span>]: x_date.replace(year=<span class="number">2013</span>)  <span class="comment">#是方法，不是函数</span></div><div class="line">Out[<span class="number">4</span>]: datetime.date(<span class="number">2013</span>, <span class="number">5</span>, <span class="number">27</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><code>fromtimestamp()</code><br>将时间戳转换为date对象</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> datetime</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: <span class="keyword">import</span> time</div><div class="line"></div><div class="line">In [<span class="number">3</span>]: x_time=time.time() <span class="comment">#获得当前时间的时间戳</span></div><div class="line"></div><div class="line">In [<span class="number">4</span>]: x_date=datetime.date.fromtimestamp(x_time) <span class="comment">#将时间戳转换为date对象</span></div><div class="line"></div><div class="line">In [<span class="number">5</span>]: x_time,x_date</div><div class="line">Out[<span class="number">5</span>]: (<span class="number">1464335817.807451</span>, datetime.date(<span class="number">2016</span>, <span class="number">5</span>, <span class="number">27</span>))</div></pre></td></tr></table></figure>
+<h4 id="datetime-time类"><a href="#datetime-time类" class="headerlink" title="datetime.time类"></a>datetime.time类</h4><p>与datetime.date类似</p>
+<ul>
+<li><code>time</code>类<br>获得当前时间，或者创建时间</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> datetime</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: x_time=datetime.time()</div><div class="line"></div><div class="line">In [<span class="number">3</span>]: y_time=datetime.time(<span class="number">4</span>,<span class="number">12</span>,<span class="number">30</span>)</div><div class="line"></div><div class="line">In [<span class="number">4</span>]: x_time,y_time</div><div class="line">Out[<span class="number">4</span>]: (datetime.time(<span class="number">0</span>, <span class="number">0</span>), datetime.time(<span class="number">4</span>, <span class="number">12</span>, <span class="number">30</span>))</div></pre></td></tr></table></figure>
+<ul>
+<li><code>replace()</code><br>与datetime.date类相同</li>
+</ul>
+<h4 id="datetime-datetime类"><a href="#datetime-datetime类" class="headerlink" title="datetime.datetime类"></a>datetime.datetime类</h4><p>与datetime.date类似</p>
+<h4 id="datetime-timedelta类"><a href="#datetime-timedelta类" class="headerlink" title="datetime.timedelta类"></a>datetime.timedelta类</h4><p>举个例子说明：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> datetime</div><div class="line"></div><div class="line">In [<span class="number">2</span>]: today=datetime.datetime.today()</div><div class="line"></div><div class="line">In [<span class="number">3</span>]: yesterday=today-datetime.timedelta(days=<span class="number">1</span>)</div><div class="line"></div><div class="line">In [<span class="number">4</span>]: yesterday,today</div><div class="line">Out[<span class="number">5</span>]:</div><div class="line">(datetime.datetime(<span class="number">2016</span>, <span class="number">5</span>, <span class="number">26</span>, <span class="number">16</span>, <span class="number">11</span>, <span class="number">28</span>, <span class="number">160604</span>),</div><div class="line"> datetime.datetime(<span class="number">2016</span>, <span class="number">5</span>, <span class="number">27</span>, <span class="number">16</span>, <span class="number">11</span>, <span class="number">28</span>, <span class="number">160604</span>))</div></pre></td></tr></table></figure>
+<!-- ## 常见的处理时间方法
+### 获得当前时间
+### 获取时间差
+### 获得与已知相差某个时间间隔的时间
+### 将字符串转换为时间
+### 将时间戳转换为时间元组
+### 将时间元组转换为时间戳
+### 将时间转换为字符串 -->
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/05/27/pythontime/">pythontime</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Houhzize</a></p>
+        <p><span>发布时间:</span>2016-05-27, 12:04:48</p>
+        <p><span>最后更新:</span>2016-07-12, 19:58:28</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/27/pythontime/" title="pythontime">http://houhzize.github.io/2016/05/27/pythontime/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://houhzize.github.io/2016/05/27/pythontime/　　作者: Houhzize" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/07/12/noteCompare/">
+                    noteCompare
+                </a>
+            </div>
+        
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python中的时间处理模块"><span class="toc-number">1.</span> <span class="toc-text">Python中的时间处理模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#time模块"><span class="toc-number">1.1.</span> <span class="toc-text">time模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类型"><span class="toc-number">1.1.1.</span> <span class="toc-text">类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-number">1.1.2.</span> <span class="toc-text">函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datetime模块"><span class="toc-number">1.2.</span> <span class="toc-text">datetime模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类型-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#datetime-date类"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">datetime.date类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#datetime-time类"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">datetime.time类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#datetime-datetime类"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">datetime.datetime类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#datetime-timedelta类"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">datetime.timedelta类</span></a></li></ol></li></ol></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"pythontime　| Houhzize's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/05/27/pythontime/" data-title="pythontime" data-url="http://houhzize.github.io/2016/05/27/pythontime/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"houhzize"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/07/12/noteCompare/" title="上一篇: noteCompare">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/07/12/noteCompare/">noteCompare</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/27/pythontime/">pythontime</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 Houhzize
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.0">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
